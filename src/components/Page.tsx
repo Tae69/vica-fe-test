@@ -1,12 +1,12 @@
-import React, { ComponentProps, FC, PropsWithChildren } from "react";
-import { Container } from "@mui/material";
+import React from 'react';
+import { Container } from '@mui/material';
 
 type Props = {
-  children?: React.ReactNode
-  center?: boolean
-}
+  children: React.ReactNode;
+  center?: boolean;
+};
 
-const Page = ({ children, center }: Props) => {
+function Page({ children, center = false }: Props) {
   let styles = {};
 
   if (center) {
@@ -21,7 +21,11 @@ const Page = ({ children, center }: Props) => {
     <Container maxWidth="xl" style={{ minHeight: '100vh', ...styles }}>
       {children}
     </Container>
-  )
+  );
+}
+
+Page.defaultProps = {
+  center: false
 };
 
 export default Page;

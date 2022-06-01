@@ -1,74 +1,77 @@
-import { Box, Button, Container, TextField, Typography } from "@mui/material";
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import Page from "../components/Page";
-import { loggedIn } from "../features/users";
+import React, { useState } from 'react';
+import { Box, Button, TextField, Typography } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import Page from '../components/Page';
+import { loggedIn } from '../features/users';
 import api from '../mocks/api';
-import { ApiError } from "../mocks/types";
+import { ApiError } from '../mocks/types';
 
 type FormError = {
-  username?: string
-  password?: string
-  api?: string
-}
+  username?: string;
+  password?: string;
+  api?: string;
+};
 
-const Login = () => {
+function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('admin');
+  const [password, setPassword] = useState('testing123');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<FormError | null>(null);
 
-  async function login(e: React.MouseEvent<HTMLButtonElement>): Promise<void> {
+  const login = async () => {
     try {
-      const error: FormError = {};
+      const validationError: FormError = {};
       if (!username.trim().length) {
-        error.username = 'Username must be filled.';
+        validationError.username = 'Username must be filled.';
       }
       if (!password.trim().length) {
-        error.password = 'Password must be filled.';
+        validationError.password = 'Password must be filled.';
       }
 
-      if (Object.keys(error).length > 0) {
-        setError(error);
+      if (Object.keys(validationError).length > 0) {
+        setError(validationError);
         return;
       }
 
       setError(null);
       setIsLoading(true);
 
-      const { user, token } = await api.login(username, password)
+      const { user, token } = await api.login(username, password);
       dispatch(loggedIn({ user, token }));
-      navigate('/dashboard');
+      navigate('/');
       setError(null);
-    }
-    catch (err) {
+    } catch (err) {
       if (err instanceof ApiError) {
         setError({
           api: err.message
         });
-      }
-      else {
+      } else {
         console.error(err);
       }
-    }
-    finally {
+    } finally {
       setIsLoading(false);
     }
-
-  }
+  };
 
   return (
     <Page center>
-      <Box style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+      <Box
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexDirection: 'column'
+        }}
+      >
         <Typography variant="h4">Book Management Login</Typography>
         <TextField
           error={!!error?.username || !!error?.api}
           helperText={error?.username}
           value={username}
-          onChange={e => setUsername(e.target.value)}
+          onChange={(e) => setUsername(e.target.value)}
           id="username-required"
           label="Username"
           placeholder="Username"
@@ -78,26 +81,26 @@ const Login = () => {
           error={!!error?.password || !!error?.api}
           helperText={error?.password}
           value={password}
-          onChange={e => setPassword(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
           id="password-required"
           label="Password"
           type="password"
           placeholder="Password"
           style={{ marginTop: 16, marginBottom: 16, width: '100%' }}
         />
-        {!!error?.api &&
-          <Typography sx={{ color: 'error.main', mb: 2 }}>{error.api}</Typography>
-        }
-        <Button disabled={isLoading} size="large" onClick={login} variant="contained" style={{ width: '100%' }}>
-          {
-            isLoading
-              ? 'Logging In...'
-              : 'Login'
-          }
+        {!!error?.api && <Typography sx={{ color: 'error.main', mb: 2 }}>{error.api}</Typography>}
+        <Button
+          disabled={isLoading}
+          size="large"
+          onClick={login}
+          variant="contained"
+          style={{ width: '100%' }}
+        >
+          {isLoading ? 'Logging In...' : 'Login'}
         </Button>
       </Box>
     </Page>
-  )
+  );
 }
 
 export default Login;

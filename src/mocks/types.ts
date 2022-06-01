@@ -1,16 +1,16 @@
 export enum Role {
   Admin = 'ADMIN',
   Editor = 'EDITOR',
-  Member = 'Member'
+  Member = 'Member',
 }
 
 export type DBUser = {
-  id: number
-  name: string
-  password: string
-  role: Role
-  dateJoined: number
-}
+  id: number;
+  name: string;
+  password: string;
+  role: Role;
+  dateJoined: number;
+};
 
 export type User = Omit<DBUser, 'password'>;
 

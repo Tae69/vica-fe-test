@@ -1,7 +1,6 @@
 import { ThemeProvider } from '@emotion/react';
 import React from 'react';
-import { Navigate } from 'react-router-dom';
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import RequireAuth from './components/RequireAuth';
 import Dashboard from './pages/dashboard';
@@ -13,19 +12,19 @@ function App() {
     <ThemeProvider theme={lightTheme}>
       <div className="App">
         <Routes>
-          <Route path="/" element={<Navigate to="/login" />}>
-          </Route>
-          <Route path="/login" element={<Login />}></Route>
-          <Route path="/dashboard" element={(
-            <RequireAuth>
-              <Dashboard />
-            </RequireAuth>
-          )}
-          ></Route>
+          <Route
+            path="/"
+            element={
+              <RequireAuth>
+                <Dashboard />
+              </RequireAuth>
+            }
+          />
+          <Route path="/login" element={<Login />} />
         </Routes>
-      </div >
-    </ThemeProvider >
-  )
+      </div>
+    </ThemeProvider>
+  );
 }
 
 export default App;

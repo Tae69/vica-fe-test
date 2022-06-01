@@ -1,12 +1,13 @@
-import { Navigate } from "react-router-dom";
-import { selectToken } from "../features/users"
-import { useAppSelector } from "../utils/hooks"
+import React from 'react';
+import { Navigate } from 'react-router-dom';
+import { selectToken } from '../features/users';
+import { useAppSelector } from '../utils/hooks';
 
 type Props = {
-  children: JSX.Element,
-}
+  children: JSX.Element;
+};
 
-const RequireAuth = ({ children }: Props) => {
+function RequireAuth({ children }: Props) {
   const token = useAppSelector(selectToken);
 
   return token ? children : <Navigate to="/login" replace />;
