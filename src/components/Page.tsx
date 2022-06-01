@@ -18,7 +18,7 @@ function Page({ children, center = false }: Props) {
   }
 
   return (
-    <Container maxWidth="xl" style={{ minHeight: '100vh', ...styles }}>
+    <Container maxWidth={false} style={{ minHeight: '100vh', ...styles }}>
       {children}
     </Container>
   );

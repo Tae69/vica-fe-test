@@ -1,6 +1,6 @@
 import { ThemeProvider } from '@emotion/react';
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import RequireAuth from './components/RequireAuth';
 import Dashboard from './pages/dashboard';
