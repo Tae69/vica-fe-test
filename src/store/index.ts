@@ -1,9 +1,10 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import userReducer from '../features/user';
+import borrowReducer from '../features/borrow';
 
 export function makeStore() {
   return configureStore({
-    reducer: { user: userReducer },
+    reducer: { user: userReducer, borrow: borrowReducer },
   });
 }
 
