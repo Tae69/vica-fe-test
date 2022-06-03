@@ -3,6 +3,8 @@ import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
 import RequireAuth from './components/RequireAuth';
+import EditUser from './pages/EditUser';
+import CreateUser from './pages/NewUser';
 import Login from './pages/Login';
 import Users from './pages/Users';
 import lightTheme from './themes/light';
@@ -27,6 +29,22 @@ function App() {
               element={
                 <RequireAuth>
                   <Users />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path=":userId/edit"
+              element={
+                <RequireAuth>
+                  <EditUser />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="create"
+              element={
+                <RequireAuth>
+                  <CreateUser />
                 </RequireAuth>
               }
             />
