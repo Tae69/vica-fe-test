@@ -12,9 +12,10 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import BookIcon from '@mui/icons-material/Book';
+import { useNavigate } from 'react-router-dom';
 import LinkBehavior from './LinkBehavior';
 import { useAppDispatch, useAppSelector } from '../utils/hooks';
-import { logout, selectCurrentUser } from '../features/users';
+import { logout, selectCurrentUser } from '../features/user';
 
 const pages = ['Books', 'Users', 'Analytics'];
 
@@ -67,8 +68,11 @@ function TopBar() {
   const avatarText = user?.name.charAt(0);
   const dispatch = useAppDispatch();
 
+  const navigate = useNavigate();
+
   const onLogout = () => {
     dispatch(logout());
+    navigate('/');
   };
 
   return (
@@ -164,10 +168,7 @@ function TopBar() {
 
           <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' }, alignItems: 'center' }}>
             <Avatar>{avatarText}</Avatar>
-            <Button
-              onClick={onLogout}
-              sx={{ my: 2, ml: 1, color: 'white', display: 'block' }}
-            >
+            <Button onClick={onLogout} sx={{ my: 2, ml: 1, color: 'white', display: 'block' }}>
               Logout
             </Button>
           </Box>
