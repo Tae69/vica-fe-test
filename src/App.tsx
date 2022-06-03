@@ -11,6 +11,7 @@ import lightTheme from './themes/light';
 import Books from './pages/Books';
 import EditBook from './pages/EditBook';
 import CreateBook from './pages/NewBook';
+import Analytics from './pages/Analytics';
 
 function App() {
   return (
@@ -38,7 +39,7 @@ function App() {
             <Route
               path=":userId/edit"
               element={
-                <RequireAuth>
+                <RequireAuth onlyStaff>
                   <EditUser />
                 </RequireAuth>
               }
@@ -46,7 +47,7 @@ function App() {
             <Route
               path="create"
               element={
-                <RequireAuth>
+                <RequireAuth onlyStaff>
                   <CreateUser />
                 </RequireAuth>
               }
@@ -64,7 +65,7 @@ function App() {
             <Route
               path=":bookId/edit"
               element={
-                <RequireAuth>
+                <RequireAuth onlyStaff>
                   <EditBook />
                 </RequireAuth>
               }
@@ -72,12 +73,20 @@ function App() {
             <Route
               path="create"
               element={
-                <RequireAuth>
+                <RequireAuth onlyStaff>
                   <CreateBook />
                 </RequireAuth>
               }
             />
           </Route>
+          <Route
+            path="/analytics"
+            element={
+              <RequireAuth>
+                <Analytics />
+              </RequireAuth>
+            }
+          />
         </Routes>
       </div>
     </ThemeProvider>
