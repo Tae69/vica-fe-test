@@ -8,7 +8,9 @@ import {
   Paper,
   TextField,
   Snackbar,
-  Alert
+  Alert,
+  AlertProps,
+  AlertColor
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import SearchIcon from '@mui/icons-material/Search';
@@ -29,6 +31,8 @@ function Books() {
   const [rows, setRows] = useState<Book[]>([]);
   const [keyword, setKeyword] = useState('');
   const [open, setOpen] = useState(false);
+  const [msg, setMsg] = useState('');
+  const [severity, setSeverity] = useState<AlertColor>('success');
 
   const token = useApi();
 
@@ -38,18 +42,30 @@ function Books() {
     });
   }, [keyword]);
 
-  const removeUser = async (id: number) => {
-    // try {
-    //   await api.removeUser(token, id);
-    //   const index = rows.findIndex((r) => r.id === id);
-    //   if (index > -1) {
-    //     rows.splice(index, 1);
-    //     setRows([...rows]);
-    //   }
-    //   setOpen(true);
-    // } catch (err) {
-    //   console.error(err);
-    // }
+  const borrowedBooks = useAppSelector(selectBooks);
+
+  const removeBook = async (id: number) => {
+    try {
+      if (borrowedBooks[id]?.length) {
+        const error = 'Can not remove book that is being borrowed';
+        setMsg(error);
+        setSeverity('error');
+        setOpen(true);
+        throw new Error(error);
+      }
+
+      await api.deleteBook(token, id);
+      const index = rows.findIndex((r) => r.id === id);
+      if (index > -1) {
+        rows.splice(index, 1);
+        setRows([...rows]);
+      }
+      setMsg('Book deleted successfully');
+      setSeverity('success');
+      setOpen(true);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const dispatch = useAppDispatch();
@@ -71,7 +87,6 @@ function Books() {
     setOpen(false);
   };
 
-  const borrowedBooks = useAppSelector(selectBooks);
   const bookRows: BookRow[] = rows.map((b) => ({
     ...b,
     borrowers: borrowedBooks[b.id] || []
@@ -109,7 +124,7 @@ function Books() {
             <EnhancedTable
               rows={bookRows}
               user={user}
-              onRemove={removeUser}
+              onRemove={removeBook}
               onBorrow={borrowBook}
               onReturn={returnBook}
             />
@@ -120,8 +135,8 @@ function Books() {
             onClose={handleClose}
             anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
           >
-            <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-              Book deleted successfully
+            <Alert onClose={handleClose} severity={severity} sx={{ width: '100%' }}>
+              {msg}
             </Alert>
           </Snackbar>
         </Container>

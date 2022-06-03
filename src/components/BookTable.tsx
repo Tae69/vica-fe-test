@@ -137,6 +137,7 @@ export default function EnhancedTable({ rows, user, onRemove, onBorrow, onReturn
               .map((row) => {
                 const labelId = `enhanced-table-checkbox-${row.id}`;
                 const isBorrowed = row.borrowers.some((b) => b.id === user.id);
+                const remaining = row.copies - row.borrowers.length;
 
                 return (
                   <TableRow hover tabIndex={-1} key={row.id}>
@@ -146,11 +147,17 @@ export default function EnhancedTable({ rows, user, onRemove, onBorrow, onReturn
                     <TableCell>{row.author}</TableCell>
                     <TableCell>{row.genre}</TableCell>
                     <TableCell>{row.yearPublished}</TableCell>
-                    <TableCell>{row.copies - row.borrowers.length}</TableCell>
+                    <TableCell>
+                      {remaining} / {row.copies}
+                    </TableCell>
                     <TableCell>{row.borrowers[row.borrowers.length - 1]?.name || '-'}</TableCell>
                     <TableCell>
-                      {!isBorrowed && <Button onClick={() => onBorrow(row)}>Borrow</Button>}
-                      {isBorrowed && <Button onClick={() => onReturn(row)}>Return</Button>}
+                      <Box>
+                        {remaining > 0 && !isBorrowed && (
+                          <Button onClick={() => onBorrow(row)}>Borrow</Button>
+                        )}
+                        {isBorrowed && <Button onClick={() => onReturn(row)}>Return</Button>}
+                      </Box>
                       <Button component={LinkBehavior} href={`/books/${row.id}/edit`}>
                         Edit
                       </Button>

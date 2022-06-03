@@ -9,6 +9,8 @@ import Login from './pages/Login';
 import Users from './pages/Users';
 import lightTheme from './themes/light';
 import Books from './pages/Books';
+import EditBook from './pages/EditBook';
+import CreateBook from './pages/NewBook';
 
 function App() {
   return (
@@ -56,6 +58,22 @@ function App() {
               element={
                 <RequireAuth>
                   <Books />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path=":bookId/edit"
+              element={
+                <RequireAuth>
+                  <EditBook />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="create"
+              element={
+                <RequireAuth>
+                  <CreateBook />
                 </RequireAuth>
               }
             />
