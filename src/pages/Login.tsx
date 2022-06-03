@@ -3,8 +3,8 @@ import { Box, Button, TextField, Typography } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Page from '../components/Page';
-import { loggedIn } from '../features/users';
-import api from '../mocks/api';
+import { loggedIn } from '../features/user';
+import api from '../mocks/userApi';
 import { ApiError } from '../mocks/types';
 
 type FormError = {

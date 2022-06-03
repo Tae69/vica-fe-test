@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { selectToken } from '../features/users';
+import { selectToken } from '../features/user';
 import { useAppSelector } from '../utils/hooks';
 
 type Props = {
