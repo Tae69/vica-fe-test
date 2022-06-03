@@ -1,6 +1,6 @@
 export enum Role {
-  Admin = 'ADMIN',
-  Editor = 'EDITOR',
+  Admin = 'Admin',
+  Editor = 'Editor',
   Member = 'Member',
 }
 
@@ -23,3 +23,15 @@ export class ApiError extends Error {
     Object.setPrototypeOf(this, ApiError.prototype);
   }
 }
+
+export type DBBook = {
+    id: number;
+    title: string;
+    description: string;
+    genre: string;
+    author: string;
+    yearPublished: number;
+    copies: number;
+};
+
+export type Book = DBBook;

@@ -1,10 +1,10 @@
 import { ThemeProvider } from '@emotion/react';
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
 import RequireAuth from './components/RequireAuth';
-import Dashboard from './pages/dashboard';
 import Login from './pages/Login';
+import Users from './pages/Users';
 import lightTheme from './themes/light';
 
 function App() {
@@ -16,11 +16,21 @@ function App() {
             path="/"
             element={
               <RequireAuth>
-                <Dashboard />
+                <Navigate to="/users" replace />
               </RequireAuth>
             }
           />
           <Route path="/login" element={<Login />} />
+          <Route path="/users">
+            <Route
+              index
+              element={
+                <RequireAuth>
+                  <Users />
+                </RequireAuth>
+              }
+            />
+          </Route>
         </Routes>
       </div>
     </ThemeProvider>
