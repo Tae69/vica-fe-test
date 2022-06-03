@@ -8,6 +8,7 @@ import CreateUser from './pages/NewUser';
 import Login from './pages/Login';
 import Users from './pages/Users';
 import lightTheme from './themes/light';
+import Books from './pages/Books';
 
 function App() {
   return (
@@ -45,6 +46,16 @@ function App() {
               element={
                 <RequireAuth>
                   <CreateUser />
+                </RequireAuth>
+              }
+            />
+          </Route>
+          <Route path="/books">
+            <Route
+              index
+              element={
+                <RequireAuth>
+                  <Books />
                 </RequireAuth>
               }
             />

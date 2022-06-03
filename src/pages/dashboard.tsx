@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Typography } from '@mui/material';
 import Page from '../components/Page';
 import { useAppDispatch, useAppSelector } from '../utils/hooks';
-import { logout as logoutAction, selectCurrentUser } from '../features/users';
+import { logout as logoutAction, selectCurrentUser } from '../features/user';
 import TopBar from '../components/TopBar';
 import LinkBehavior from '../components/LinkBehavior';
 
