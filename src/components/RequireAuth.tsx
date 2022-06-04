@@ -13,7 +13,7 @@ function RequireAuth({ children, onlyStaff }: Props) {
   const token = useAppSelector(selectToken);
   const user = useAppSelector(selectCurrentUser);
 
-  const hasAccess = token && (!onlyStaff || (!onlyStaff && user!.role !== Role.Member));
+  const hasAccess = token && (!onlyStaff || (onlyStaff && user!.role !== Role.Member));
 
   return hasAccess ? children : <Navigate to="/login" replace />;
 }

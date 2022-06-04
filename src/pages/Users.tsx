@@ -6,12 +6,13 @@ import Page from '../components/Page';
 import TopBar from '../components/TopBar';
 import EnhancedTable from '../components/Table';
 import useApi from '../hooks/useApi';
-import { ApiError, User } from '../mocks/types';
+import { ApiError, Role, User } from '../mocks/types';
 import api from '../mocks/userApi';
 import LinkBehavior from '../components/LinkBehavior';
-import { useAppDispatch } from '../utils/hooks';
+import { useAppDispatch, useAppSelector } from '../utils/hooks';
 import { openNotification } from '../features/notification';
 import ErrorMessage from '../enums/error';
+import { selectCurrentUser } from '../features/user';
 
 function Users() {
   const [rows, setRows] = useState<User[]>([]);
@@ -20,6 +21,7 @@ function Users() {
   const token = useApi();
 
   const dispatch = useAppDispatch();
+  const user = useAppSelector(selectCurrentUser)!;
 
   useEffect(() => {
     api.listUsers(token, keyword).then((users) => {
@@ -48,18 +50,20 @@ function Users() {
     <>
       <TopBar />
       <Page>
-        <Container>
+        <Container sx={{ p: 0 }}>
           <Paper sx={{ mt: 2, p: 2 }}>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <Typography variant="h5">Users</Typography>
-              <Button
-                component={LinkBehavior}
-                href="/users/create"
-                variant="contained"
-                endIcon={<AddIcon />}
-              >
-                Add
-              </Button>
+              {user.role === Role.Admin && (
+                <Button
+                  component={LinkBehavior}
+                  href="/users/create"
+                  variant="contained"
+                  endIcon={<AddIcon />}
+                >
+                  Add
+                </Button>
+              )}
             </Box>
             <Box sx={{ mt: 4, display: 'flex', alignItems: 'center' }}>
               <TextField
@@ -73,7 +77,7 @@ function Users() {
                 }}
               />
             </Box>
-            <EnhancedTable rows={rows} onRemove={removeUser} />
+            <EnhancedTable rows={rows} onRemove={removeUser} canModify={user.role === Role.Admin} />
           </Paper>
         </Container>
       </Page>

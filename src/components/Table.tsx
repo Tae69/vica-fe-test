@@ -48,13 +48,14 @@ const headCells: readonly HeadCell[] = [
 ];
 
 interface EnhancedTableProps {
+  canModify: boolean;
   onRequestSort: (event: React.MouseEvent<unknown>, property: keyof Data) => void;
   order: Order;
   orderBy: string;
 }
 
 function EnhancedTableHead(props: EnhancedTableProps) {
-  const { order, orderBy, onRequestSort } = props;
+  const { order, orderBy, onRequestSort, canModify } = props;
   const createSortHandler = (property: keyof Data) => (event: React.MouseEvent<unknown>) => {
     onRequestSort(event, property);
   };
@@ -78,7 +79,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
             </TableSortLabel>
           </TableCell>
         ))}
-        <TableCell>Actions</TableCell>
+        {canModify && <TableCell>Actions</TableCell>}
       </TableRow>
     </TableHead>
   );
@@ -86,10 +87,11 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 
 type Props = {
   rows: User[];
+  canModify: boolean;
   onRemove: (id: number) => Promise<void>;
 };
 
-export default function EnhancedTable({ rows, onRemove }: Props) {
+export default function EnhancedTable({ rows, onRemove, canModify }: Props) {
   const [order, setOrder] = useState<Order>('asc');
   const [orderBy, setOrderBy] = useState<keyof Data>('name');
   const [page, setPage] = useState(0);
@@ -116,7 +118,12 @@ export default function EnhancedTable({ rows, onRemove }: Props) {
     <Box sx={{ width: '100%', mt: 2 }}>
       <TableContainer>
         <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
-          <EnhancedTableHead order={order} orderBy={orderBy} onRequestSort={handleRequestSort} />
+          <EnhancedTableHead
+            canModify={canModify}
+            order={order}
+            orderBy={orderBy}
+            onRequestSort={handleRequestSort}
+          />
           <TableBody>
             {stableSort(rows, getComparator(order, orderBy))
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
@@ -124,20 +131,22 @@ export default function EnhancedTable({ rows, onRemove }: Props) {
                 const labelId = `enhanced-table-checkbox-${index}`;
 
                 return (
-                  <TableRow hover tabIndex={-1} key={row.name}>
+                  <TableRow hover tabIndex={-1} key={row.id}>
                     <TableCell component="th" id={labelId} scope="row">
                       {row.name}
                     </TableCell>
                     <TableCell>{row.role}</TableCell>
                     <TableCell>{dayjs.date(row.dateJoined).format('DD MMM YYYY')}</TableCell>
-                    <TableCell>
-                      <Button component={LinkBehavior} href={`/users/${row.id}/edit`}>
-                        Edit
-                      </Button>
-                      <Button onClick={() => onRemove(row.id)} color="error">
-                        Remove
-                      </Button>
-                    </TableCell>
+                    {canModify && (
+                      <TableCell>
+                        <Button component={LinkBehavior} href={`/users/${row.id}/edit`}>
+                          Edit
+                        </Button>
+                        <Button onClick={() => onRemove(row.id)} color="error">
+                          Remove
+                        </Button>
+                      </TableCell>
+                    )}
                   </TableRow>
                 );
               })}

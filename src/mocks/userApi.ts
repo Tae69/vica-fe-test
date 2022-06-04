@@ -85,7 +85,9 @@ function getUser(token: string, id: number): Promise<DBUser> {
       return;
     }
 
-    resolve(user);
+    setTimeout(() => {
+      resolve(user);
+    }, 1000);
   });
 }
 
@@ -99,7 +101,7 @@ function updateUser(token: string, data: DBUser): Promise<User> {
 
     const currentUser = users.find((u) => u.id === userId);
 
-    if (!currentUser || currentUser.role === Role.Member) {
+    if (!currentUser || currentUser.role !== Role.Admin) {
       reject(new ApiError('Invalid user role'));
       return;
     }
@@ -130,7 +132,7 @@ function removeUser(token: string, id: number): Promise<void> {
 
     const currentUser = users.find((u) => u.id === userId);
 
-    if (!currentUser || currentUser.role === Role.Member) {
+    if (!currentUser || currentUser.role !== Role.Admin) {
       reject(new ApiError('Invalid user role'));
       return;
     }
@@ -160,7 +162,7 @@ function createUser(token: string, data: Omit<DBUser, 'id'>): Promise<User> {
 
     const currentUser = users.find((u) => u.id === userId);
 
-    if (!currentUser || currentUser.role === Role.Member) {
+    if (!currentUser || currentUser.role !== Role.Admin) {
       reject(new ApiError('Invalid user role'));
       return;
     }
