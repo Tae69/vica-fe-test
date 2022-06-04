@@ -84,6 +84,7 @@ function updateBook(token: string, data: DBBook): Promise<DBBook> {
     book.description = data.description;
     book.yearPublished = data.yearPublished;
     book.copies = data.copies;
+    book.availability = data.availability;
 
     resolve(book);
   });
@@ -111,7 +112,8 @@ function createBook(token: string, data: Omit<DBBook, 'id'>): Promise<DBBook> {
       author: data.author,
       description: data.description,
       yearPublished: data.yearPublished,
-      copies: data.copies
+      copies: data.copies,
+      availability: data.availability
     };
 
     books.push(book);

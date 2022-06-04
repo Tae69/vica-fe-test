@@ -9,7 +9,9 @@ import {
   IconButton,
   Alert,
   Backdrop,
-  CircularProgress
+  CircularProgress,
+  FormControlLabel,
+  Switch
 } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -41,6 +43,7 @@ function NewBook() {
   const [genre, setGenre] = useState('');
   const [copies, setCopies] = useState('');
   const [yearPublished, setYearPublished] = useState<string>(new Date().getFullYear().toString());
+  const [availability, setAvailability] = useState(true);
   const [error, setError] = useState<FormError | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -61,6 +64,7 @@ function NewBook() {
           setGenre(b.genre);
           setCopies(b.copies.toString());
           setYearPublished(b.yearPublished.toString());
+          setAvailability(b.availability);
         })
         .catch(() => {
           dispatch(openNotification({ message: ErrorMessage.unexpectedError, severity: 'error' }));
@@ -113,7 +117,8 @@ function NewBook() {
         genre,
         author,
         yearPublished: Number(yearPublished),
-        copies: Number(copies)
+        copies: Number(copies),
+        availability
       };
 
       if (bookId) {
@@ -221,6 +226,19 @@ function NewBook() {
                 value={copies}
                 onChange={(e) => setCopies(e.target.value)}
                 sx={{ flexGrow: 1 }}
+              />
+            </Box>
+            <Box sx={{ mt: 4, display: 'flex', alignItems: 'center' }}>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={availability}
+                    onChange={(e) => setAvailability(e.target.checked)}
+                    color="primary"
+                  />
+                }
+                label="Availability"
+                labelPlacement="start"
               />
             </Box>
             <Box sx={{ mt: 4, display: 'flex', alignItems: 'center' }}>

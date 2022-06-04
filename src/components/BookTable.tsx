@@ -15,7 +15,7 @@ import { getComparator, Order, stableSort } from '../utils/helper';
 import LinkBehavior from './LinkBehavior';
 import type { BookRow } from '../pages/Books';
 
-type Data = Book;
+type Data = Omit<Book, 'availability'>;
 
 interface HeadCell {
   disablePadding: boolean;
@@ -88,6 +88,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
             </TableSortLabel>
           </TableCell>
         ))}
+        <TableCell>Availability</TableCell>
         <TableCell>Last Borrower</TableCell>
         <TableCell>Actions</TableCell>
       </TableRow>
@@ -158,10 +159,11 @@ export default function EnhancedTable({
                     <TableCell>
                       {remaining} / {row.copies}
                     </TableCell>
+                    <TableCell>{row.availability ? 'Yes' : 'No'}</TableCell>
                     <TableCell>{row.borrowers[row.borrowers.length - 1]?.name || '-'}</TableCell>
                     <TableCell>
                       <Box>
-                        {remaining > 0 && !isBorrowed && (
+                        {remaining > 0 && !isBorrowed && row.availability && (
                           <Button onClick={() => onBorrow(row)}>Borrow</Button>
                         )}
                         {isBorrowed && <Button onClick={() => onReturn(row)}>Return</Button>}

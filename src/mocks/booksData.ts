@@ -9,7 +9,8 @@ const books: Book[] = [
     genre: 'Classics',
     author: 'Marcel Proust',
     yearPublished: 1913,
-    copies: 10
+    copies: 10,
+    availability: true
   },
   {
     id: 2,
@@ -19,7 +20,8 @@ const books: Book[] = [
     genre: 'Fiction',
     author: 'James Joyce',
     yearPublished: 1904,
-    copies: 14
+    copies: 14,
+    availability: true
   },
   {
     id: 3,
@@ -29,7 +31,8 @@ const books: Book[] = [
     genre: 'Novel',
     author: 'Miguel de Cervantes',
     yearPublished: 1605,
-    copies: 4
+    copies: 4,
+    availability: true
   },
   {
     id: 4,
@@ -39,7 +42,8 @@ const books: Book[] = [
     genre: 'Fiction',
     author: 'Gabriel García Márquez',
     yearPublished: 1967,
-    copies: 8
+    copies: 8,
+    availability: true
   },
   {
     id: 5,
@@ -49,7 +53,8 @@ const books: Book[] = [
     genre: 'Fiction',
     author: 'F. Scott Fitzgerald',
     yearPublished: 1925,
-    copies: 20
+    copies: 20,
+    availability: true
   },
   {
     id: 6,
@@ -59,7 +64,8 @@ const books: Book[] = [
     genre: 'Fiction',
     author: 'Herman Melville',
     yearPublished: 1851,
-    copies: 2
+    copies: 2,
+    availability: true
   },
   {
     id: 7,
@@ -69,7 +75,8 @@ const books: Book[] = [
     genre: 'History',
     author: 'Leo Tolstoy',
     yearPublished: 1867,
-    copies: 5
+    copies: 5,
+    availability: true
   }
 ];
 

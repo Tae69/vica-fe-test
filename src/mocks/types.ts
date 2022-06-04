@@ -32,6 +32,7 @@ export type DBBook = {
     author: string;
     yearPublished: number;
     copies: number;
+    availability: boolean;
 };
 
 export type Book = DBBook;
