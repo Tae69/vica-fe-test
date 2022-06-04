@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { selectCurrentUser, selectToken } from '../features/user';
+import { selectCurrentUser, selectToken } from '../reducers/user';
 import { Role } from '../mocks/types';
 import { useAppSelector } from '../hooks/redux';
 

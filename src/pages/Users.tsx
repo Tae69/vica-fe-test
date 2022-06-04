@@ -10,9 +10,9 @@ import { ApiError, Role, User } from '../mocks/types';
 import api from '../mocks/userApi';
 import LinkBehavior from '../components/LinkBehavior';
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
-import { openNotification } from '../features/notification';
+import { openNotification } from '../reducers/notification';
 import ErrorMessage from '../enums/error';
-import { selectCurrentUser } from '../features/user';
+import { selectCurrentUser } from '../reducers/user';
 
 function Users() {
   const [rows, setRows] = useState<User[]>([]);

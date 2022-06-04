@@ -3,10 +3,10 @@ import { Alert, Box, Button, TextField, Typography } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Page from '../components/Page';
-import { loggedIn } from '../features/user';
+import { loggedIn } from '../reducers/user';
 import api from '../mocks/userApi';
 import { ApiError } from '../mocks/types';
-import { openNotification } from '../features/notification';
+import { openNotification } from '../reducers/notification';
 import ErrorMessage from '../enums/error';
 
 type FormError = {

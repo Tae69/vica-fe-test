@@ -1,7 +1,7 @@
 import React from 'react';
 import { Alert, Snackbar } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
-import { closeNotification, selectNotification } from '../features/notification';
+import { closeNotification, selectNotification } from '../reducers/notification';
 
 function Notification() {
   const { open, message, severity } = useAppSelector(selectNotification);

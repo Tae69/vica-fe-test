@@ -1,7 +1,7 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import userReducer from '../features/user';
-import borrowReducer from '../features/borrow';
-import notificationReducer from '../features/notification';
+import userReducer from '../reducers/user';
+import borrowReducer from '../reducers/borrow';
+import notificationReducer from '../reducers/notification';
 
 export function makeStore() {
   return configureStore({

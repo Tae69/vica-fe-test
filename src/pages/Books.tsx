@@ -10,9 +10,9 @@ import { ApiError, Book, Role, User } from '../mocks/types';
 import api from '../mocks/bookApi';
 import LinkBehavior from '../components/LinkBehavior';
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
-import { borrow, selectBooks, returnBook as returnBookAction } from '../features/borrow';
-import { selectCurrentUser } from '../features/user';
-import { openNotification } from '../features/notification';
+import { borrow, selectBooks, returnBook as returnBookAction } from '../reducers/borrow';
+import { selectCurrentUser } from '../reducers/user';
+import { openNotification } from '../reducers/notification';
 import ErrorMessage from '../enums/error';
 
 export type BookRow = Book & { borrowers: User[] };

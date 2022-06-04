@@ -1,4 +1,4 @@
-import { selectToken } from '../features/user';
+import { selectToken } from '../reducers/user';
 import { useAppSelector } from './redux';
 
 function useApi() {

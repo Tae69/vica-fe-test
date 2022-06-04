@@ -27,7 +27,7 @@ import { ApiError, Role } from '../mocks/types';
 import api from '../mocks/userApi';
 import LinkBehavior from '../components/LinkBehavior';
 import { useAppDispatch } from '../hooks/redux';
-import { openNotification } from '../features/notification';
+import { openNotification } from '../reducers/notification';
 import ErrorMessage from '../enums/error';
 
 const dayJs = new DayjsAdapter();
