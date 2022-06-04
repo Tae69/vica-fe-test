@@ -23,7 +23,7 @@ function App() {
             path="/"
             element={
               <RequireAuth>
-                <Navigate to="/users" replace />
+                <Navigate to="/books" replace />
               </RequireAuth>
             }
           />

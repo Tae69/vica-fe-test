@@ -16,8 +16,7 @@ import { useNavigate } from 'react-router-dom';
 import LinkBehavior from './LinkBehavior';
 import { useAppDispatch, useAppSelector } from '../utils/hooks';
 import { logout, selectCurrentUser } from '../features/user';
-
-const pages = ['Books', 'Users', 'Analytics'];
+import { Role, User } from '../mocks/types';
 
 function TopBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
@@ -64,8 +63,8 @@ function TopBar() {
     );
   }
 
-  const user = useAppSelector(selectCurrentUser);
-  const avatarText = user?.name.charAt(0);
+  const user = useAppSelector(selectCurrentUser) as User;
+  const avatarText = user.name.charAt(0);
   const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
@@ -74,6 +73,10 @@ function TopBar() {
     dispatch(logout());
     navigate('/');
   };
+
+  const pages = ['Books', 'Users', 'Analytics'].filter(
+    (item) => item !== 'Users' || (item === 'Users' && user.role !== Role.Member)
+  );
 
   return (
     <AppBar position="static">
