@@ -39,7 +39,7 @@ function NewBook() {
   const [description, setDescription] = useState('');
   const [author, setAuthor] = useState('');
   const [genre, setGenre] = useState('');
-  const [copies, setCopies] = useState(0);
+  const [copies, setCopies] = useState('');
   const [yearPublished, setYearPublished] = useState<string>(new Date().getFullYear().toString());
   const [error, setError] = useState<FormError | null>(null);
   const [loading, setLoading] = useState(false);
@@ -59,7 +59,7 @@ function NewBook() {
           setDescription(b.description);
           setAuthor(b.author);
           setGenre(b.genre);
-          setCopies(b.copies);
+          setCopies(b.copies.toString());
           setYearPublished(b.yearPublished.toString());
         })
         .catch(() => {
@@ -87,7 +87,7 @@ function NewBook() {
       if (description.trim().length > 400) {
         validationError.description = 'Description must maximum 400 characters.';
       }
-      if (!copies || copies < 0) {
+      if (!copies || Number.isNaN(copies) || Number(copies) < 1) {
         validationError.copies = 'Copies must be minimum 1.';
       }
 
@@ -113,7 +113,7 @@ function NewBook() {
         genre,
         author,
         yearPublished: Number(yearPublished),
-        copies
+        copies: Number(copies)
       };
 
       if (bookId) {
@@ -215,11 +215,11 @@ function NewBook() {
                 error={!!error?.copies || !!error?.api}
                 helperText={error?.copies}
                 type="number"
-                label="Copies"
+                label="Number of copies"
                 id="copies"
                 placeholder="Copies"
                 value={copies}
-                onChange={(e) => setCopies(Number(e.target.value))}
+                onChange={(e) => setCopies(e.target.value)}
                 sx={{ flexGrow: 1 }}
               />
             </Box>
