@@ -3,7 +3,7 @@ import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
 import RequireAuth from './components/RequireAuth';
-import CreateOrEditUser from './pages/NewUser';
+import CreateOrEditUser from './pages/NewOrEditUser';
 import Login from './pages/Login';
 import Users from './pages/Users';
 import lightTheme from './themes/light';

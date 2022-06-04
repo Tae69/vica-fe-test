@@ -39,7 +39,7 @@ type FormError = {
   api?: string;
 };
 
-function NewUser() {
+function NewOrEditUser() {
   const { userId } = useParams();
   const [name, setName] = useState('');
   const [role, setRole] = useState<Role>(Role.Member);
@@ -224,4 +224,4 @@ function NewUser() {
   );
 }
 
-export default NewUser;
+export default NewOrEditUser;
