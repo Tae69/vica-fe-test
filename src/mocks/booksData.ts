@@ -70,67 +70,7 @@ const books: Book[] = [
     author: 'Leo Tolstoy',
     yearPublished: 1867,
     copies: 5
-  },
-  {
-    id: 8,
-    title: 'War and Peace',
-    description:
-      "Epic in scale, War and Peace delineates in graphic detail events leading up to Napoleon's invasion of Russia, and the impact of the Napoleonic era on Tsarist society, as seen through the eyes of fi",
-    genre: 'AAA',
-    author: 'Leo Tolstoy',
-    yearPublished: 1867,
-    copies: 5
-  },
-  {
-    id: 8,
-    title: 'War and Peace',
-    description:
-      "Epic in scale, War and Peace delineates in graphic detail events leading up to Napoleon's invasion of Russia, and the impact of the Napoleonic era on Tsarist society, as seen through the eyes of fi",
-    genre: 'BBB',
-    author: 'Leo Tolstoy',
-    yearPublished: 1867,
-    copies: 5
-  },
-  {
-    id: 8,
-    title: 'War and Peace',
-    description:
-      "Epic in scale, War and Peace delineates in graphic detail events leading up to Napoleon's invasion of Russia, and the impact of the Napoleonic era on Tsarist society, as seen through the eyes of fi",
-    genre: 'CBB',
-    author: 'Leo Tolstoy',
-    yearPublished: 1867,
-    copies: 5
-  },
-  {
-    id: 8,
-    title: 'War and Peace',
-    description:
-      "Epic in scale, War and Peace delineates in graphic detail events leading up to Napoleon's invasion of Russia, and the impact of the Napoleonic era on Tsarist society, as seen through the eyes of fi",
-    genre: 'BB',
-    author: 'Leo Tolstoy',
-    yearPublished: 1867,
-    copies: 5
-  },
-  {
-    id: 8,
-    title: 'War and Peace',
-    description:
-      "Epic in scale, War and Peace delineates in graphic detail events leading up to Napoleon's invasion of Russia, and the impact of the Napoleonic era on Tsarist society, as seen through the eyes of fi",
-    genre: 'BSB',
-    author: 'Leo Tolstoy',
-    yearPublished: 1867,
-    copies: 5
-  },
-  {
-    id: 8,
-    title: 'War and Peace',
-    description:
-      "Epic in scale, War and Peace delineates in graphic detail events leading up to Napoleon's invasion of Russia, and the impact of the Napoleonic era on Tsarist society, as seen through the eyes of fi",
-    genre: 'B8B',
-    author: 'Leo Tolstoy',
-    yearPublished: 1867,
-    copies: 5
-  },
+  }
 ];
 
 export default books;

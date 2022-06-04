@@ -1,17 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, useEffect } from 'react';
-import {
-  Box,
-  Button,
-  Typography,
-  Container,
-  Paper,
-  TextField,
-  Snackbar,
-  Alert,
-  AlertProps,
-  AlertColor
-} from '@mui/material';
+import { Box, Button, Typography, Container, Paper, TextField } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import SearchIcon from '@mui/icons-material/Search';
 import Page from '../components/Page';
@@ -24,15 +12,14 @@ import LinkBehavior from '../components/LinkBehavior';
 import { useAppDispatch, useAppSelector } from '../utils/hooks';
 import { borrow, selectBooks, returnBook as returnBookAction } from '../features/borrow';
 import { selectCurrentUser } from '../features/user';
+import { openNotification } from '../features/notification';
+import ErrorMessage from '../enums/error';
 
 export type BookRow = Book & { borrowers: User[] };
 
 function Books() {
   const [rows, setRows] = useState<Book[]>([]);
   const [keyword, setKeyword] = useState('');
-  const [open, setOpen] = useState(false);
-  const [msg, setMsg] = useState('');
-  const [severity, setSeverity] = useState<AlertColor>('success');
 
   const token = useApi();
 
@@ -44,14 +31,13 @@ function Books() {
 
   const borrowedBooks = useAppSelector(selectBooks);
 
+  const dispatch = useAppDispatch();
   const removeBook = async (id: number) => {
     try {
       if (borrowedBooks[id]?.length) {
         const error = 'Can not remove book that is being borrowed';
-        setMsg(error);
-        setSeverity('error');
-        setOpen(true);
-        throw new Error(error);
+        dispatch(openNotification({ message: error, severity: 'error' }));
+        return;
       }
 
       await api.deleteBook(token, id);
@@ -60,15 +46,14 @@ function Books() {
         rows.splice(index, 1);
         setRows([...rows]);
       }
-      setMsg('Book deleted successfully');
-      setSeverity('success');
-      setOpen(true);
+
+      dispatch(openNotification({ message: 'Book deleted successfully' }));
     } catch (err) {
       console.error(err);
+      dispatch(openNotification({ message: ErrorMessage.unexpectedError, severity: 'error' }));
     }
   };
 
-  const dispatch = useAppDispatch();
   const user = useAppSelector(selectCurrentUser) as User;
 
   const borrowBook = async (book: Book) => {
@@ -77,14 +62,6 @@ function Books() {
 
   const returnBook = async (book: Book) => {
     dispatch(returnBookAction({ book, user }));
-  };
-
-  const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    setOpen(false);
   };
 
   const bookRows: BookRow[] = rows.map((b) => ({
@@ -129,16 +106,6 @@ function Books() {
               onReturn={returnBook}
             />
           </Paper>
-          <Snackbar
-            open={open}
-            autoHideDuration={6000}
-            onClose={handleClose}
-            anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-          >
-            <Alert onClose={handleClose} severity={severity} sx={{ width: '100%' }}>
-              {msg}
-            </Alert>
-          </Snackbar>
         </Container>
       </Page>
     </>

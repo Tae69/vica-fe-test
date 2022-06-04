@@ -6,6 +6,8 @@ import Page from '../components/Page';
 import { loggedIn } from '../features/user';
 import api from '../mocks/userApi';
 import { ApiError } from '../mocks/types';
+import { openNotification } from '../features/notification';
+import ErrorMessage from '../enums/error';
 
 type FormError = {
   username?: string;
@@ -50,6 +52,7 @@ function Login() {
         });
       } else {
         console.error(err);
+        dispatch(openNotification({ message: ErrorMessage.unexpectedError, severity: 'error' }));
       }
     } finally {
       setIsLoading(false);

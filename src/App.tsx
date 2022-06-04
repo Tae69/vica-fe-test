@@ -12,6 +12,7 @@ import Books from './pages/Books';
 import EditBook from './pages/EditBook';
 import CreateBook from './pages/NewBook';
 import Analytics from './pages/Analytics';
+import Notification from './components/notification';
 
 function App() {
   return (
@@ -88,6 +89,7 @@ function App() {
             }
           />
         </Routes>
+        <Notification />
       </div>
     </ThemeProvider>
   );

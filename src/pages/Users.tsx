@@ -1,14 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-  Box,
-  Button,
-  Typography,
-  Container,
-  Paper,
-  TextField,
-  Snackbar,
-  Alert
-} from '@mui/material';
+import { Box, Button, Typography, Container, Paper, TextField } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import SearchIcon from '@mui/icons-material/Search';
 import Page from '../components/Page';
@@ -18,13 +9,17 @@ import useApi from '../hooks/useApi';
 import { User } from '../mocks/types';
 import api from '../mocks/userApi';
 import LinkBehavior from '../components/LinkBehavior';
+import { useAppDispatch } from '../utils/hooks';
+import { openNotification } from '../features/notification';
+import ErrorMessage from '../enums/error';
 
 function Users() {
   const [rows, setRows] = useState<User[]>([]);
   const [keyword, setKeyword] = useState('');
-  const [open, setOpen] = useState(false);
 
   const token = useApi();
+
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     api.listUsers(token, keyword).then((users) => {
@@ -40,18 +35,12 @@ function Users() {
         rows.splice(index, 1);
         setRows([...rows]);
       }
-      setOpen(true);
+
+      dispatch(openNotification({ message: 'User deleted successfully.' }));
     } catch (err) {
       console.error(err);
+      dispatch(openNotification({ message: ErrorMessage.unexpectedError, severity: 'error' }));
     }
-  };
-
-  const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    setOpen(false);
   };
 
   return (
@@ -85,16 +74,6 @@ function Users() {
             </Box>
             <EnhancedTable rows={rows} onRemove={removeUser} />
           </Paper>
-          <Snackbar
-            open={open}
-            autoHideDuration={6000}
-            onClose={handleClose}
-            anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-          >
-            <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-              User deleted successfully
-            </Alert>
-          </Snackbar>
         </Container>
       </Page>
     </>
