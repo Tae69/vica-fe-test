@@ -150,10 +150,66 @@ function deleteBook(token: string, id: number): Promise<void> {
   });
 }
 
+const borrowedBooks: { [key: number]: number } = {};
+function borrowBook(token: string, data: DBBook): Promise<DBBook> {
+  return new Promise((resolve, reject) => {
+    const userId = sessions[token];
+    if (!userId) {
+      reject(new ApiError('Invalid token.'));
+      return;
+    }
+
+    const book = books.find((b) => b.id === data.id);
+
+    if (book === undefined) {
+      reject(new ApiError('Book not found'));
+      return;
+    }
+
+    const borrowedCount = borrowedBooks[book.id] || 0;
+
+    if (book.copies - borrowedCount < 1 || !book.availability) {
+      reject(new ApiError('Book not available to borrow'));
+    }
+
+    borrowedBooks[book.id] = borrowedBooks[book.id] || 0;
+    borrowedBooks[book.id] += 1;
+
+    resolve(book);
+  });
+}
+
+function returnBook(token: string, data: DBBook): Promise<DBBook> {
+  return new Promise((resolve, reject) => {
+    const userId = sessions[token];
+    if (!userId) {
+      reject(new ApiError('Invalid token.'));
+      return;
+    }
+
+    const book = books.find((b) => b.id === data.id);
+
+    if (book === undefined) {
+      reject(new ApiError('Book not found'));
+      return;
+    }
+
+    const borrowedCount = borrowedBooks[book.id] || 0;
+
+    if (borrowedCount > 0) {
+      borrowedBooks[book.id] -= 1;
+    }
+
+    resolve(book);
+  });
+}
+
 export default {
   listBooks,
   getBook,
   updateBook,
   createBook,
-  deleteBook
+  deleteBook,
+  borrowBook,
+  returnBook
 };

@@ -58,11 +58,27 @@ function Books() {
   const user = useAppSelector(selectCurrentUser) as User;
 
   const borrowBook = async (book: Book) => {
-    dispatch(borrow({ book, user }));
+    try {
+      await api.borrowBook(token, book);
+
+      dispatch(borrow({ book, user }));
+    } catch (err) {
+      console.error(err);
+      const message = err instanceof ApiError ? err.message : ErrorMessage.unexpectedError;
+      dispatch(openNotification({ message, severity: 'error' }));
+    }
   };
 
   const returnBook = async (book: Book) => {
-    dispatch(returnBookAction({ book, user }));
+    try {
+      await api.borrowBook(token, book);
+
+      dispatch(returnBookAction({ book, user }));
+    } catch (err) {
+      console.error(err);
+      const message = err instanceof ApiError ? err.message : ErrorMessage.unexpectedError;
+      dispatch(openNotification({ message, severity: 'error' }));
+    }
   };
 
   const bookRows: BookRow[] = rows.map((b) => ({
