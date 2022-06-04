@@ -6,7 +6,7 @@ import Page from '../components/Page';
 import TopBar from '../components/TopBar';
 import EnhancedTable from '../components/Table';
 import useApi from '../hooks/useApi';
-import { User } from '../mocks/types';
+import { ApiError, User } from '../mocks/types';
 import api from '../mocks/userApi';
 import LinkBehavior from '../components/LinkBehavior';
 import { useAppDispatch } from '../utils/hooks';
@@ -39,7 +39,8 @@ function Users() {
       dispatch(openNotification({ message: 'User deleted successfully.' }));
     } catch (err) {
       console.error(err);
-      dispatch(openNotification({ message: ErrorMessage.unexpectedError, severity: 'error' }));
+      const message = err instanceof ApiError ? err.message : ErrorMessage.unexpectedError;
+      dispatch(openNotification({ message, severity: 'error' }));
     }
   };
 

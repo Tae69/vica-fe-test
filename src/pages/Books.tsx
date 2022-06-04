@@ -6,7 +6,7 @@ import Page from '../components/Page';
 import TopBar from '../components/TopBar';
 import EnhancedTable from '../components/BookTable';
 import useApi from '../hooks/useApi';
-import { Book, User } from '../mocks/types';
+import { ApiError, Book, User } from '../mocks/types';
 import api from '../mocks/bookApi';
 import LinkBehavior from '../components/LinkBehavior';
 import { useAppDispatch, useAppSelector } from '../utils/hooks';
@@ -50,7 +50,8 @@ function Books() {
       dispatch(openNotification({ message: 'Book deleted successfully' }));
     } catch (err) {
       console.error(err);
-      dispatch(openNotification({ message: ErrorMessage.unexpectedError, severity: 'error' }));
+      const message = err instanceof ApiError ? err.message : ErrorMessage.unexpectedError;
+      dispatch(openNotification({ message, severity: 'error' }));
     }
   };
 

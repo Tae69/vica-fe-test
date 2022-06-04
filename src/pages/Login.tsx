@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Button, TextField, Typography } from '@mui/material';
+import { Alert, Box, Button, TextField, Typography } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Page from '../components/Page';
@@ -70,6 +70,11 @@ function Login() {
         }}
       >
         <Typography variant="h4">Book Management Login</Typography>
+        {!!error?.api && (
+          <Alert sx={{ marginY: 2, width: '100%', boxSizing: 'border-box' }} severity="error">
+            {error.api}
+          </Alert>
+        )}
         <TextField
           error={!!error?.username || !!error?.api}
           helperText={error?.username}
@@ -91,7 +96,6 @@ function Login() {
           placeholder="Password"
           style={{ marginTop: 16, marginBottom: 16, width: '100%' }}
         />
-        {!!error?.api && <Typography sx={{ color: 'error.main', mb: 2 }}>{error.api}</Typography>}
         <Button
           disabled={isLoading}
           size="large"
