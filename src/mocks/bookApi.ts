@@ -50,7 +50,9 @@ function getBook(token: string, id: number): Promise<DBBook> {
       return;
     }
 
-    resolve(book);
+    setTimeout(() => {
+      resolve(book);
+    }, 1000);
   });
 }
 
@@ -103,7 +105,7 @@ function createBook(token: string, data: Omit<DBBook, 'id'>): Promise<DBBook> {
     }
 
     const book = {
-      id: books.length,
+      id: books.length + 1,
       title: data.title,
       genre: data.genre,
       author: data.author,

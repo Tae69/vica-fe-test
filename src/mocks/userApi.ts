@@ -166,7 +166,7 @@ function createUser(token: string, data: Omit<DBUser, 'id'>): Promise<User> {
     }
 
     const user = {
-      id: users.length,
+      id: users.length + 1,
       name: data.name,
       role: data.role,
       password: data.password,

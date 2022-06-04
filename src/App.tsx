@@ -8,8 +8,7 @@ import Login from './pages/Login';
 import Users from './pages/Users';
 import lightTheme from './themes/light';
 import Books from './pages/Books';
-import EditBook from './pages/EditBook';
-import CreateBook from './pages/NewBook';
+import CreateOrUpdateBook from './pages/NewBook';
 import Analytics from './pages/Analytics';
 import Notification from './components/notification';
 
@@ -66,7 +65,7 @@ function App() {
               path=":bookId/edit"
               element={
                 <RequireAuth onlyStaff>
-                  <EditBook />
+                  <CreateOrUpdateBook />
                 </RequireAuth>
               }
             />
@@ -74,7 +73,7 @@ function App() {
               path="create"
               element={
                 <RequireAuth onlyStaff>
-                  <CreateBook />
+                  <CreateOrUpdateBook />
                 </RequireAuth>
               }
             />
