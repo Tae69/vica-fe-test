@@ -8,7 +8,7 @@ import Login from './pages/Login';
 import Users from './pages/Users';
 import lightTheme from './themes/light';
 import Books from './pages/Books';
-import CreateOrUpdateBook from './pages/NewBook';
+import CreateOrUpdateBook from './pages/NewOrEditBook';
 import Analytics from './pages/Analytics';
 import Notification from './components/notification';
 
