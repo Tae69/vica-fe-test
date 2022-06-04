@@ -146,9 +146,7 @@ function removeUser(token: string, id: number): Promise<void> {
 
     users.splice(index, 1);
 
-    setTimeout(() => {
-      resolve();
-    }, 1000);
+    resolve();
   });
 }
 

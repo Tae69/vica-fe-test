@@ -4,7 +4,7 @@ import AddIcon from '@mui/icons-material/Add';
 import SearchIcon from '@mui/icons-material/Search';
 import Page from '../components/Page';
 import TopBar from '../components/TopBar';
-import EnhancedTable from '../components/Table';
+import EnhancedTable from '../components/UserTable';
 import useApi from '../hooks/useApi';
 import { ApiError, Role, User } from '../mocks/types';
 import api from '../mocks/userApi';
