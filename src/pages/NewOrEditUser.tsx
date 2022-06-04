@@ -26,7 +26,7 @@ import useApi from '../hooks/useApi';
 import { ApiError, Role } from '../mocks/types';
 import api from '../mocks/userApi';
 import LinkBehavior from '../components/LinkBehavior';
-import { useAppDispatch } from '../utils/hooks';
+import { useAppDispatch } from '../hooks/redux';
 import { openNotification } from '../features/notification';
 import ErrorMessage from '../enums/error';
 

@@ -14,7 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 import BookIcon from '@mui/icons-material/Book';
 import { useNavigate } from 'react-router-dom';
 import LinkBehavior from './LinkBehavior';
-import { useAppDispatch, useAppSelector } from '../utils/hooks';
+import { useAppDispatch, useAppSelector } from '../hooks/redux';
 import { logout, selectCurrentUser } from '../features/user';
 import { Role, User } from '../mocks/types';
 

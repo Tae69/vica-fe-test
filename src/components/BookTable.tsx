@@ -98,12 +98,20 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 type Props = {
   rows: BookRow[];
   user: User;
+  canModify: boolean;
   onRemove: (id: number) => Promise<void>;
   onReturn: (book: Book) => Promise<void>;
   onBorrow: (book: Book) => Promise<void>;
 };
 
-export default function EnhancedTable({ rows, user, onRemove, onBorrow, onReturn }: Props) {
+export default function EnhancedTable({
+  rows,
+  user,
+  onRemove,
+  onBorrow,
+  onReturn,
+  canModify
+}: Props) {
   const [order, setOrder] = useState<Order>('asc');
   const [orderBy, setOrderBy] = useState<keyof Data>('title');
   const [page, setPage] = useState(0);
@@ -158,12 +166,16 @@ export default function EnhancedTable({ rows, user, onRemove, onBorrow, onReturn
                         )}
                         {isBorrowed && <Button onClick={() => onReturn(row)}>Return</Button>}
                       </Box>
-                      <Button component={LinkBehavior} href={`/books/${row.id}/edit`}>
-                        Edit
-                      </Button>
-                      <Button onClick={() => onRemove(row.id)} color="error">
-                        Remove
-                      </Button>
+                      {canModify && (
+                        <>
+                          <Button component={LinkBehavior} href={`/books/${row.id}/edit`}>
+                            Edit
+                          </Button>
+                          <Button onClick={() => onRemove(row.id)} color="error">
+                            Remove
+                          </Button>
+                        </>
+                      )}
                     </TableCell>
                   </TableRow>
                 );

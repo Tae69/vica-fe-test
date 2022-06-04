@@ -9,7 +9,7 @@ import useApi from '../hooks/useApi';
 import { ApiError, Role, User } from '../mocks/types';
 import api from '../mocks/userApi';
 import LinkBehavior from '../components/LinkBehavior';
-import { useAppDispatch, useAppSelector } from '../utils/hooks';
+import { useAppDispatch, useAppSelector } from '../hooks/redux';
 import { openNotification } from '../features/notification';
 import ErrorMessage from '../enums/error';
 import { selectCurrentUser } from '../features/user';

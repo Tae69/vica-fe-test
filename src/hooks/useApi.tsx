@@ -1,5 +1,5 @@
 import { selectToken } from '../features/user';
-import { useAppSelector } from '../utils/hooks';
+import { useAppSelector } from './redux';
 
 function useApi() {
   const token = useAppSelector(selectToken);

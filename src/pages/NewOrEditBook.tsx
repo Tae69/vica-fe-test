@@ -17,7 +17,7 @@ import Page from '../components/Page';
 import TopBar from '../components/TopBar';
 import useApi from '../hooks/useApi';
 import api from '../mocks/bookApi';
-import { useAppDispatch } from '../utils/hooks';
+import { useAppDispatch } from '../hooks/redux';
 import { openNotification } from '../features/notification';
 import ErrorMessage from '../enums/error';
 import { ApiError } from '../mocks/types';

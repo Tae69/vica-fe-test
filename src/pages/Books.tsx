@@ -6,10 +6,10 @@ import Page from '../components/Page';
 import TopBar from '../components/TopBar';
 import EnhancedTable from '../components/BookTable';
 import useApi from '../hooks/useApi';
-import { ApiError, Book, User } from '../mocks/types';
+import { ApiError, Book, Role, User } from '../mocks/types';
 import api from '../mocks/bookApi';
 import LinkBehavior from '../components/LinkBehavior';
-import { useAppDispatch, useAppSelector } from '../utils/hooks';
+import { useAppDispatch, useAppSelector } from '../hooks/redux';
 import { borrow, selectBooks, returnBook as returnBookAction } from '../features/borrow';
 import { selectCurrentUser } from '../features/user';
 import { openNotification } from '../features/notification';
@@ -78,14 +78,16 @@ function Books() {
           <Paper sx={{ mt: 2, p: 2 }}>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <Typography variant="h5">Books</Typography>
-              <Button
-                component={LinkBehavior}
-                href="/books/create"
-                variant="contained"
-                endIcon={<AddIcon />}
-              >
-                Add
-              </Button>
+              {user.role !== Role.Member && (
+                <Button
+                  component={LinkBehavior}
+                  href="/books/create"
+                  variant="contained"
+                  endIcon={<AddIcon />}
+                >
+                  Add
+                </Button>
+              )}
             </Box>
             <Box sx={{ mt: 4, display: 'flex', alignItems: 'center' }}>
               <TextField
@@ -100,6 +102,7 @@ function Books() {
               />
             </Box>
             <EnhancedTable
+              canModify={user.role !== Role.Member}
               rows={bookRows}
               user={user}
               onRemove={removeBook}

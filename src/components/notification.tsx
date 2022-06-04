@@ -1,6 +1,6 @@
 import React from 'react';
 import { Alert, Snackbar } from '@mui/material';
-import { useAppDispatch, useAppSelector } from '../utils/hooks';
+import { useAppDispatch, useAppSelector } from '../hooks/redux';
 import { closeNotification, selectNotification } from '../features/notification';
 
 function Notification() {

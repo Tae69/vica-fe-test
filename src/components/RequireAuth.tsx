@@ -2,7 +2,7 @@ import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { selectCurrentUser, selectToken } from '../features/user';
 import { Role } from '../mocks/types';
-import { useAppSelector } from '../utils/hooks';
+import { useAppSelector } from '../hooks/redux';
 
 type Props = {
   onlyStaff?: boolean;
