@@ -49,7 +49,6 @@ function Books() {
 
       dispatch(openNotification({ message: 'Book deleted successfully' }));
     } catch (err) {
-      console.error(err);
       const message = err instanceof ApiError ? err.message : ErrorMessage.unexpectedError;
       dispatch(openNotification({ message, severity: 'error' }));
     }
@@ -63,7 +62,6 @@ function Books() {
 
       dispatch(borrow({ book, user }));
     } catch (err) {
-      console.error(err);
       const message = err instanceof ApiError ? err.message : ErrorMessage.unexpectedError;
       dispatch(openNotification({ message, severity: 'error' }));
     }
@@ -75,7 +73,6 @@ function Books() {
 
       dispatch(returnBookAction({ book, user }));
     } catch (err) {
-      console.error(err);
       const message = err instanceof ApiError ? err.message : ErrorMessage.unexpectedError;
       dispatch(openNotification({ message, severity: 'error' }));
     }

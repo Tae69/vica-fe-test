@@ -51,7 +51,6 @@ function Login() {
           api: err.message
         });
       } else {
-        console.error(err);
         dispatch(openNotification({ message: ErrorMessage.unexpectedError, severity: 'error' }));
       }
     } finally {
