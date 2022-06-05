@@ -61,6 +61,7 @@ function Books() {
       await api.borrowBook(token, book);
 
       dispatch(borrow({ book, user }));
+      dispatch(openNotification({ message: 'Book borrowed.' }));
     } catch (err) {
       const message = err instanceof ApiError ? err.message : ErrorMessage.unexpectedError;
       dispatch(openNotification({ message, severity: 'error' }));
@@ -69,9 +70,10 @@ function Books() {
 
   const returnBook = async (book: Book) => {
     try {
-      await api.borrowBook(token, book);
+      await api.returnBook(token, book);
 
       dispatch(returnBookAction({ book, user }));
+      dispatch(openNotification({ message: 'Book returned.' }));
     } catch (err) {
       const message = err instanceof ApiError ? err.message : ErrorMessage.unexpectedError;
       dispatch(openNotification({ message, severity: 'error' }));
